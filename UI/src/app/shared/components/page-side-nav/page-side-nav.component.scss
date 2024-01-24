@@ -13,7 +13,7 @@ mat-card {
 mat-nav-list{
     margin-top: 1rem;
     .active-link{
-            border: 2px solid black;
+            border: 2px solid rgb(255, 255, 255);
             background-color: rgba($color: #fff, $alpha: 0.2);
     }
 }

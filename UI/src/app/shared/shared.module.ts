@@ -5,6 +5,7 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { PageSideNavComponent } from './components/page-side-nav/page-side-nav.component';
 import { RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,14 +18,16 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [
     MaterialModule,
     PageHeaderComponent,
     PageSideNavComponent,
     PageNotFoundComponent,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ]
 
 })
