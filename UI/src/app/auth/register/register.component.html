@@ -32,16 +32,29 @@
             <mat-grid-tile>
                 <mat-form-field>
                     <mat-label>Password</mat-label>
-                    <input matInput formControlName="password">
-                    <mat-error>Field Cannot Be Empty</mat-error>
+                    <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password">
+
+                    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+                        <mat-icon>
+                            {{hidePassword ? "visibility_off" : "visibility_on"}}
+                        </mat-icon>
+                    </button>
+
+                    <mat-error>Please Enter Valid Password!</mat-error>
                 </mat-form-field>
             </mat-grid-tile>
 
             <mat-grid-tile>
                 <mat-form-field>
                     <mat-label>Repeat Password</mat-label>
-                    <input matInput formControlName="rpassword">
+                    <input [type]="hideRPassword ? 'password' : 'text'" matInput formControlName="rpassword">
 
+                    <button mat-icon-button matSuffix (click)="hideRPassword = !hideRPassword">
+                        <mat-icon>
+                            {{hideRPassword ? "visibility_off" : "visibility_on"}}
+                        </mat-icon>
+                    </button>
+                    <mat-error>Please Enter Valid Password</mat-error>
                 </mat-form-field>
             </mat-grid-tile>
 
@@ -49,9 +62,10 @@
                 <mat-form-field>
                     <mat-label>Account Type</mat-label>
                     <mat-select matSelect formControlName="selectedOption">
-                        <mat-option value="customer">Customer</mat-option>
-                        <mat-option value="owner">Hotel Owner</mat-option>
+                        <mat-option value="USER">Customer</mat-option>
+                        <mat-option value="OWNER">Hotel Owner</mat-option>
                     </mat-select>
+                    <mat-error>Please Select One Option</mat-error>
                 </mat-form-field>
             </mat-grid-tile>
 
@@ -60,7 +74,7 @@
     </mat-card-content>
 
     <mat-card-actions>
-        <button mat-raised-button color="accent">Register</button>
+        <button mat-raised-button color="accent" [disabled]="registerForm.invalid" (click)="register()">Register</button>
     </mat-card-actions>
 
     <mat-card-actions>

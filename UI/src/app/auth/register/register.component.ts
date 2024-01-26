@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../../shared/services/api.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'register',
@@ -8,9 +10,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent {
 
+  hidePassword: boolean = true;
+  hideRPassword: boolean = true;
+
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder){
+  constructor(private fb: FormBuilder, private apiService: ApiService, private snackBar: MatSnackBar){
     this.registerForm = fb.group({
       firstName: fb.control('', [Validators.required]),
       lastName: fb.control('', [Validators.required]),
@@ -18,7 +23,26 @@ export class RegisterComponent {
       selectedOption: fb.control('customer', [Validators.required]),
       password: fb.control('', [Validators.required]),
       rpassword: fb.control('', [Validators.required]),
-    })      
+    })
+  }
+
+  register() {
+
+    let user = {
+      firstName: this.registerForm.get('firstName')?.value,
+      lastName: this.registerForm.get('lastName')?.value,
+      email: this.registerForm.get('email')?.value,
+      userType: this.registerForm.get('selectedOption')?.value,
+      password: this.registerForm.get('password')?.value
+    }
+
+    console.log(user);
+
+    this.apiService.register(user).subscribe({
+      next: res => {
+        this.snackBar.open(res, "OK");
+      }
+    });
   }
 
 }
