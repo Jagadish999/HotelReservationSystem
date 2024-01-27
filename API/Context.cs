@@ -17,6 +17,7 @@ namespace API
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<User>().HasData(new User()
             {
                 Id = 1,
@@ -25,8 +26,7 @@ namespace API
                 Email = "parajulijagadish9@gmail.com",
                 Password = "123456789",
                 CreatedOn = new DateTime(2024, 1, 1, 11, 11, 11),
-                UserType = "OWNER",
-                AccountStatus = AccountStatus.APPROVED
+                UserType = "OWNER"
             });
 
             modelBuilder.Entity<User>().HasData(new User()
@@ -37,8 +37,7 @@ namespace API
                 Email = "aryalroshan2023@gmail.com",
                 Password = "123456789",
                 CreatedOn = new DateTime(2024, 2, 2, 1, 1, 1),
-                UserType = "USER",
-                AccountStatus = AccountStatus.APPROVED
+                UserType = "USER"
             });
 
             modelBuilder.Entity<Hotel>().HasData(new Hotel()
@@ -48,7 +47,8 @@ namespace API
                 Description = "Beautiful Hotel",
                 Visibility = true,
                 UserId = 1,
-                Image = File.ReadAllBytes("Images/h1.jpg")
+                Image = File.ReadAllBytes("Images/h1.jpg"),
+                ImageExtension = Path.GetExtension("Images/h1.jpg")
             });
 
             modelBuilder.Entity<Hotel>().HasData(new Hotel()
@@ -58,7 +58,8 @@ namespace API
                 Description = "Cold Hotel",
                 Visibility = true,
                 UserId = 1,
-                Image = File.ReadAllBytes("Images/h2.jpg")
+                Image = File.ReadAllBytes("Images/h2.jpg"),
+                ImageExtension = Path.GetExtension("Images/h2.jpg")
             });
 
             modelBuilder.Entity<Room>().HasData(new Room
@@ -66,8 +67,10 @@ namespace API
                 Id = 1,
                 HotelId = 1,
                 Image = File.ReadAllBytes("Images/r1.jpg"),
+                ImageExtension = Path.GetExtension("Images/r1.jpg"),
                 Description = "Luxury Suite with Mountain View",
-                RoomType = "Luxury"
+                RoomType = "Luxury",
+                RoomPrice = 2000.0f
             });
 
             modelBuilder.Entity<Room>().HasData(new Room
@@ -75,8 +78,10 @@ namespace API
                 Id = 2,
                 HotelId = 2,
                 Image = File.ReadAllBytes("Images/r2.jpg"),
+                ImageExtension= Path.GetExtension("Images/r2.jpg"),
                 Description = "Standard Room with City View",
-                RoomType = "Standard"
+                RoomType = "Standard",
+                RoomPrice = 1080.0f
             });
 
             modelBuilder.Entity<Booking>().HasData(new Booking
@@ -103,7 +108,6 @@ namespace API
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
             configurationBuilder.Properties<BookingVerification>().HaveConversion<string>();
-            configurationBuilder.Properties<AccountStatus>().HaveConversion<string>();
         }
     }
 }

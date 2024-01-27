@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subject } from 'rxjs';
+import { Hotel, Room, User } from '../../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class ApiService {
     })
   }
 
-  login(info: any){
+  login(info: any) {
 
     let params = new HttpParams().append("email", info.email).append('password', info.password).append('accountType', info.userType);
 
@@ -31,12 +32,46 @@ export class ApiService {
     })
   }
 
-  isLoggedIn(): boolean{
-    if(localStorage.getItem('access_token') !== null && !this.jwt.isTokenExpired()){
+  isLoggedIn(): boolean {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('access_token') !== null && !this.jwt.isTokenExpired()) {
       return true;
     }
 
     return false;
+  }
+
+  getUserInfo(): User | null {
+
+    if (!this.isLoggedIn()) {
+      return null;
+    }
+
+    var decodedToken = this.jwt.decodeToken();
+    var user: User = {
+      id: decodedToken.id,
+      firstName: decodedToken.firstName,
+      lastName: decodedToken.lastName,
+      email: decodedToken.email,
+      password: '',
+      createdOn: decodedToken.createdOn,
+      userType: decodedToken.userType,
+      accountStatus: decodedToken.accountStatus,
+    };
+
+    return user;
+  }
+
+  logOut(){
+    localStorage.removeItem("access_token");
+    this.userStatus.next("loggedOff");
+  }
+
+  getHotels(){
+    return this.http.get<Hotel[]>(this.baseUrl + 'GetHotels');
+  }
+
+  getRooms(){
+    return this.http.get<Room[]>(this.baseUrl + 'GetRooms');
   }
 
 }

@@ -7,7 +7,7 @@
         <mat-grid-list cols="2" rowHeight="80px" gutterSize="10px" [formGroup]="registerForm">
 
             <mat-grid-tile>
-                <mat-form-field>
+                <mat-form-field color="accent">
                     <mat-label>First Name</mat-label>
                     <input matInput formControlName="firstName">
                     <mat-error>Please Enter First Name!</mat-error>
@@ -15,7 +15,7 @@
             </mat-grid-tile>
 
             <mat-grid-tile>
-                <mat-form-field>
+                <mat-form-field color="accent">
                     <mat-label>Last Name</mat-label>
                     <input matInput formControlName="lastName">
                     <mat-error>Please Enter Last Name!</mat-error>
@@ -23,14 +23,14 @@
             </mat-grid-tile>
 
             <mat-grid-tile colspan="2">
-                <mat-form-field>
+                <mat-form-field color="accent">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email">
                     <mat-error>Please Enter Valid Email!</mat-error>
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
-                <mat-form-field>
+                <mat-form-field color="accent">
                     <mat-label>Password</mat-label>
                     <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password">
 
@@ -44,22 +44,9 @@
                 </mat-form-field>
             </mat-grid-tile>
 
+
             <mat-grid-tile>
-                <mat-form-field>
-                    <mat-label>Repeat Password</mat-label>
-                    <input [type]="hideRPassword ? 'password' : 'text'" matInput formControlName="rpassword">
-
-                    <button mat-icon-button matSuffix (click)="hideRPassword = !hideRPassword">
-                        <mat-icon>
-                            {{hideRPassword ? "visibility_off" : "visibility_on"}}
-                        </mat-icon>
-                    </button>
-                    <mat-error>Please Enter Valid Password</mat-error>
-                </mat-form-field>
-            </mat-grid-tile>
-
-            <mat-grid-tile colspan="2">
-                <mat-form-field>
+                <mat-form-field color="accent">
                     <mat-label>Account Type</mat-label>
                     <mat-select matSelect formControlName="selectedOption">
                         <mat-option value="USER">Customer</mat-option>
@@ -74,7 +61,8 @@
     </mat-card-content>
 
     <mat-card-actions>
-        <button mat-raised-button color="accent" [disabled]="registerForm.invalid" (click)="register()">Register</button>
+        <button mat-raised-button color="accent" [disabled]="registerForm.invalid"
+            (click)="register()">Register</button>
     </mat-card-actions>
 
     <mat-card-actions>

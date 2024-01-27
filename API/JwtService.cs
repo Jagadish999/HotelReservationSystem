@@ -30,8 +30,7 @@ namespace API
                 new Claim("lastName", user.LastName),
                 new Claim("email", user.Email),
                 new Claim("createdon", user.CreatedOn.ToString()),
-                new Claim("userType", user.UserType.ToString()),
-                new Claim("accountStatus", user.AccountStatus.ToString()),
+                new Claim("userType", user.UserType.ToString())
 
             };
 

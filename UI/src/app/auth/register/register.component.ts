@@ -16,13 +16,12 @@ export class RegisterComponent {
   registerForm: FormGroup;
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private snackBar: MatSnackBar){
-    this.registerForm = fb.group({
+    this.registerForm = this.fb.group({
       firstName: fb.control('', [Validators.required]),
       lastName: fb.control('', [Validators.required]),
-      email: fb.control('', [Validators.required]),
-      selectedOption: fb.control('customer', [Validators.required]),
+      email: fb.control('', [Validators.required, Validators.email]),
+      selectedOption: fb.control('USER', [Validators.required]),
       password: fb.control('', [Validators.required]),
-      rpassword: fb.control('', [Validators.required]),
     })
   }
 
@@ -36,13 +35,10 @@ export class RegisterComponent {
       password: this.registerForm.get('password')?.value
     }
 
-    console.log(user);
-
     this.apiService.register(user).subscribe({
       next: res => {
         this.snackBar.open(res, "OK");
       }
     });
   }
-
 }

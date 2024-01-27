@@ -23,7 +23,6 @@ namespace API.Controllers
         [HttpPost("Register")]
         public ActionResult Register(User user)
         {
-            user.AccountStatus = AccountStatus.UNAPPROVED;
             user.CreatedOn = DateTime.Now;
             
             Context.Users.Add(user);
@@ -35,9 +34,9 @@ namespace API.Controllers
                     <body>
                         <h1>Hi, {user.FirstName} {user.LastName}</h1>
 
-                        <h2>Your account creation request has been sent to admin</h2>
-
+                        <h2>Your account has been created and enjoy Hotel Reservation System.</h2>
                         <h2>Thanks</h2>
+
                     </body>
                    </html>
                 """;
@@ -54,16 +53,33 @@ namespace API.Controllers
             if(Context.Users.Any(u => u.Email.Equals(email) && u.Password.Equals(password) && u.UserType.Equals(accountType)))
             {
                 var user = Context.Users.Single(user => user.Email.Equals(email) && user.Password.Equals(password) && user.UserType.Equals(accountType));
-                
-                if(user.AccountStatus == AccountStatus.UNAPPROVED)
-                {
-                    return Ok("UNAPPROVED");
-                }
 
                 return Ok(JwtService.GenerateToken(user));
             }
 
             return Ok("NO ACCOUNT");
+        }
+
+        [HttpGet("GetHotels")]
+        public ActionResult GetHotels()
+        {
+            if (Context.Hotels.Any())
+            {
+                return Ok(Context.Hotels.ToList());
+            }
+
+            return NotFound();
+        }
+        
+
+        [HttpGet("GetRooms")]
+        public ActionResult GetRooms()
+        {
+            if (Context.Rooms.Any())
+            {
+               return Ok(Context.Rooms.ToList());
+            }
+            return NotFound();
         }
     }
 }

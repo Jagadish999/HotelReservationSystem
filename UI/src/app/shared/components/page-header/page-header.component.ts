@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class PageHeaderComponent {
 
+  loggedIn: boolean = false;
+
+  constructor(){
+
+  }
 }

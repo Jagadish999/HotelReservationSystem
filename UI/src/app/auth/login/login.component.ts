@@ -15,8 +15,9 @@ export class LoginComponent {
   hidePassword: boolean = true;
 
   constructor(fb: FormBuilder, private apiService: ApiService, private snackBar: MatSnackBar){
+    
     this.loginForm = fb.group({
-      email: fb.control('', [Validators.required]),
+      email: fb.control('', [Validators.required, Validators.email]),
       password: fb.control('', [Validators.required]),
       selectedOption: fb.control('USER', [Validators.required]),
     })
@@ -30,18 +31,17 @@ export class LoginComponent {
       password: this.loginForm.get('password')?.value,
     }
 
-    console.log(user);
-
     this.apiService.login(user).subscribe({
       next: res => {
         
         if( res === "!!!NO SUCH ACCOUNT!!!"){
-            this.snackBar.open("!!! Invalid Credentials !!!");
+            this.snackBar.open("!!! Invalid Credentials !!!", "OK");
         }
         else if(res === "UNAPPROVED"){
-          this.snackBar.open("Account Not Verified");
+          this.snackBar.open("Account Not Verified", "Ok");
         }
         else{
+          this.snackBar.open("Welcome", "Ok")
           localStorage.setItem('access_token', res);
           this.apiService.userStatus.next("loggedIn");
         }

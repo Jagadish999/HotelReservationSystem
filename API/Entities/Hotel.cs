@@ -8,5 +8,6 @@
         public bool Visibility { get; set; } = false;
         public int UserId { get; set; }
         public byte[] Image { get; set; } = Array.Empty<byte>();
+        public string ImageExtension { get; set; } = string.Empty;
     }
 }
